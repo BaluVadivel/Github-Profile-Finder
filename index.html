@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github Profile Finder</title>
+
+    <meta name='keywords' content=' github finder , github profile finder , balu github finder , balu github profile finder '>
+    <meta name='description' content='Github profile finder is used to search github profiles using their username'>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@BaluVadivel">
+    <meta name="twitter:creator" content="@BaluVadivel">
+    <meta name="twitter:image" content="https://github-profile-finder.balu.dev/assets/img/favicon.png">
+
+    <meta property="og:image" content="https://github-profile-finder.balu.dev/assets/img/favicon.png">
+    <meta property="og:image:type" content="image/png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <section id="fullHeight">
+        <section id="header">
+            <header>
+                <h1>
+                    Github Profile Finder
+                </h1>
+            </header>
+        </section>
+        <section id="container">
+            <div id="profile">
+                <figure>
+                    <img id="avatar" src="./assets/img/default-profile.png" alt="">
+                    <figcaption>
+                        <span id="name">
+                            User Name
+                        </span>
+                    </figcaption>
+                </figure>
+                <p id="userLoginId">
+                    Login
+                </p>
+                <!-- <div id="alertBox">
+                    Validation Message
+                </div> -->
+                <form id="input-container">
+                    <input pattern="[A-Za-z0-9]+([A-Za-z0-9-]+|[A-Za-z0-9-]*)" type="text" id="login" placeholder="Enter user username">
+
+                    <!--
+                        User name only can contain alphabet, number 
+                        and hyphen. Username can not begin with hyphen.
+                    -->
+
+                    <!--
+                        <div id="alert-box-container" class="other-alert-only">
+                        above class is added to show other alert
+                    -->
+                    <div id="alert-box-container">
+                        <ul class="alert-box" id="invalid-alert">
+                            <li>
+                                Username only can contain alphabet, number and hyphen.
+                            </li>
+                            <li>
+                                Username can not begin with hyphen.
+                            </li>
+                        </ul>
+                        <div class="alert-box" id="other-alert">
+                            <!--
+                                Validation Message
+                                User Not Found (OR) API rate limit exceeded
+                            -->
+                        </div>
+                    </div>
+
+
+                    <input type="submit" name="submit" id="submit" value="search">
+
+
+                    <label for="quick-search" id="quick-search-label">
+                        <input type="checkbox" id="quick-search">
+                        <span>
+                            Quick Search
+                        </span>
+                    </label>
+
+                    <!--
+                        USERNAME only contain alphabet, numbers and hyphen
+                    -->
+                </form>
+            </div>
+            <div id="about-container">
+                <div id="bio-container">
+                    <h2>BIO</h2>
+                    <p id="bio">
+                        User bio or about or description.
+                    </p>
+                </div>
+                <div id="count-container">
+                    <p>
+                        <span id="public_repos">Number of</span> repositary
+                    </p>
+                    <p>
+                        <span id="followers">Number of</span> followers
+                    </p>
+                    <p>
+                        <span id="following">Number of</span> following
+                    </p>
+                </div>
+                <div id="contact-container">
+                    <div>
+                        <p>
+                            <!-- <img src="./assets/img/icon-location.svg" alt=""> -->
+                            <span id="location">
+                                location
+                            </span>
+                        </p>
+                        <p>
+                            <!-- <img src="./assets/img/icon-company.svg" alt=""> -->
+                            <a id="company" target="_blank">
+                                company
+                            </a>
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            <!-- <img src="./assets/img/icon-blog.svg" alt=""> -->
+                            <a id="blog" target="_blank">
+                                blog
+                            </a>
+                        </p>
+                        <p>
+                            <!-- <img src="./assets/img/icon-twitter.svg" alt=""> -->
+                            <a id="twitter_username" target="_blank">
+                                twitter_username
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <footer>
+        <a href="mailto:BALU15GB@GMAIL.COM?subject=Github-Profile-Finder" target="_blank">
+            Contact
+        </a>
+        <a href="https://github.com/BaluVadivel/Github-Profile-Finder" target="_blank">
+            Source Code
+        </a>
+    </footer>
+</body>
+    <script src="./assets/script/script.js"></script>
+</html>
