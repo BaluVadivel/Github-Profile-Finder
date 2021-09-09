@@ -1,5 +1,6 @@
 var loginId = document.getElementById("login");
 var userLoginNameId = document.getElementById("userLoginId");
+var apiRequestDelayTime = 600; // In MilleSeconds
 
 var quickSearch  = document.getElementById("quick-search");
 var submitEvent = document.getElementById("input-container");
@@ -21,13 +22,13 @@ function searchControls() {
     if (quickSearch.checked === true) {
         submitButton.disabled = true;
         loginId.addEventListener("input", startSearch);
-        //DEV
+        // DEV
         // console.log("input event listener ====> ADDED");
         startSearch();
     } else {
         submitButton.disabled = false;
         loginId.removeEventListener("input", startSearch);
-        //DEV
+        // DEV
         //console.log("input event listener ====> REMOVED");
     }
 }
@@ -41,7 +42,7 @@ submitEvent.addEventListener("submit", function(event) {
 });
 
 function createApiUrl(userName) {
-    //DEV
+    // DEV
     // console.log("createApiUrl CALLED for", userName);
     const userApiUrl = "https://api.github.com/users/" + userName;
     return userApiUrl;
@@ -49,7 +50,7 @@ function createApiUrl(userName) {
 
 
 function startSearch() {
-    //DEV
+    // DEV
     // console.log("startSearch begining");
     alertBoxContainer.classList.remove("other-alert-only");
     let userName = loginId.value;
@@ -58,11 +59,11 @@ function startSearch() {
     //REMOVING PREVIOUS setTimeout BEFORE CREATING A NEW ONE
     //IF PREVIOUS setTimeout EXIST
     if (previousTimeout) {
-        //DEV
+        // DEV
         //console.log("removing previousTimeout =",previousTimeout);
         clearTimeout(previousTimeout);
     } else {
-        //DEV
+        // DEV
         //console.log("previousTimeout dosen't exist");
     }
 
@@ -78,74 +79,74 @@ function startSearch() {
     previousTimeout =
     setTimeout( function() {
         let apiUrl = createApiUrl(userName);
-        getApiResponse(apiUrl);
-    }, 1500);
+        getApiResponse(apiUrl)
+            .then(function(data) {
+                // DEV
+                // console.log("Data is :", data);
+                let message = data.message;
+                if (!data.message) {
+                    putDataOnHtml(data);
+                    // DEV
+                    // console.log("EXECUTION ENDED HERE on putDataOnHtml");
+                } else {
+                    // DEV
+                    // console.log("MESSAGE PROPERTY IS EXIST ON RESPONSE OBJECT");
+                    if (message === "Not Found") {
+                        message = 'Username "' + loginId.value + '" Not Found';
+                    }
+                    let limitMesage = message.slice(0,23);
+                    if (limitMesage === "API rate limit exceeded") { //length 23
+                        message = message.slice(0,43);
+                        // "API rate limit exceeded for xxx.xxx.xxx.xxx"
+                    }
+
+                    otherAlertBox(message);
+                    console.log("Documentation", data.documentation_url);
+                    // DEV
+                    // console.log("EXECUTION ENDED HERE on otherAlertBox");
+                }
+            })
+            .then(function(data) {
+                
+            })
+            .catch(function(error) {
+                console.log("Error is",error);
+            })
+    }, apiRequestDelayTime);
 }
 
 function disablingElement(id) {
-    console.log(id,"id will be disabled in 1 second");
+    // DEV
+    // console.log("DISABLED id is", id);
     let nullElement = document.getElementById(id);
     nullElement.innerText = id + " not found";
     nullElement.removeAttribute("href");
-    setTimeout( function() {
-        nullElement.parentElement.classList.add("disable");
-    }, 1000);
+    nullElement.parentElement.classList.add("disable");
 }
 
-function otherAlertBox(alertMessage) {
+function otherAlertBox(message) {
     let otherAlertElement = document.getElementById("other-alert");
-    otherAlertElement.innerText = alertMessage;
+    otherAlertElement.innerText = message;
     alertBoxContainer.classList.add("other-alert-only");
-    console.log("otherAlertBox is",alertMessage);
+    console.log("Message ==>",message);
 }
 
-
-function getApiResponse(apiUrl) {
-
-    //DEV
-    console.log("getApiResponse CALLED for----------->",apiUrl);
-
-    const request = new XMLHttpRequest();
-    request.onload = function () {
-        let response = JSON.parse(this.response);
-        //DEV
-        // console.log("Object reponse:",response);
-        let message = response.message;
-
-        // CHECKING MESSAGE PROPERTY IS EXIST ON RESPONSE OBJECT
-        if (message) {
-            //DEV
-            // console.log("MESSAGE PROPERTY IS EXIST ON RESPONSE OBJECT")
-
-            if (message === "Not Found") {
-                message = 'Username "' + loginId.value + '" Not Found';
-                otherAlertBox(message);
-                return 0;
-            }
-
-            let limitMesage = message.slice(0,23);
-            if (limitMesage === "API rate limit exceeded") { //length 23
-                otherAlertBox(message.slice(0,43));
-                // "API rate limit exceeded for xxx.xxx.xxx.xxx"
-                return 0;
-            }
-        }
-        putDataOnHtml(response);
-        //DEV
-        //console.log("getApiResponse completely executed");
+async function getApiResponse(apiUrl) {
+    try {
+        let response = await fetch(apiUrl);
+        // DEV
+        // console.log("RESPONSE is",response);
+        let data = response.json();
+        return data;
+    } catch (error) {
+        throw error;
     }
-    request.onerror = function () {
-        //DEV
-        console.log("transaction fails due to an error");
-        console.log(this);
-    }
-    request.open("get", apiUrl);
-    request.send();
 }
+
 
 function putDataOnHtml(objData) {
-    //DEV
-    console.log("PUTTING DATA ON PAGE FOR login =", objData.login);
+    // DEV
+    // console.log("putDataOnHtml called for ==>", objData.login);
     let generalElement;    
     const array = [
         "name",
@@ -255,33 +256,33 @@ function putDataOnHtml(objData) {
         "company": company,
         "twitter_username": twitter_username
     };
-    //DEV
+    // DEV
     // console.log("linkObject",linkObject);
     for (const property in linkObject) {
         generalElement = document.getElementById(property);
         let tempName = linkObject[property].name;
         if(tempName) {
-            //DEV
+            // DEV
             // console.log("tempName :",tempName);
             generalElement.innerText = tempName;
             let tempLink = linkObject[property].link;
             let generalParentElement = generalElement.parentElement;
             if(tempLink) {
-                //DEV
+                // DEV
                 // console.log("tempLink :",tempLink);
                 generalElement.href = tempLink;
                 generalParentElement.classList.add("link");
-                //DEV
+                // DEV
                 // console.log("bottomBorder is added to", property);
             }
             else {
                 generalParentElement.classList.remove("link");
-                //DEV
+                // DEV
                 // console.log("bottomBorder is removed from", property);
             }
         }
     }
 
-    //DEV
+    // DEV
     // console.log("putDataOnHtml completely executed");
 }
