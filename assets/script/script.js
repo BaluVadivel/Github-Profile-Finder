@@ -1,6 +1,6 @@
 var loginId = document.getElementById("login");
 var userLoginNameId = document.getElementById("userLoginId");
-var apiRequestDelayTime = 600; // In MilleSeconds
+var apiRequestDelayTime = 1000; // In MilleSeconds
 
 var quickSearch  = document.getElementById("quick-search");
 var submitEvent = document.getElementById("input-container");
