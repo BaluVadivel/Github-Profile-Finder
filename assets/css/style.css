@@ -85,7 +85,7 @@ section {
     text-align: center;
 }
 #userLoginId::before {
-    content: "Login name: ";
+    content: "Login : ";
     font-weight: bold;
 }
 
@@ -120,15 +120,17 @@ section {
 
 /* INPUT VALID AND INVALID */
 
-#login:focus:valid {
-    outline: #54bb00 solid 3px;
-}
-#login:focus:invalid {
-    outline: #ff0019 solid 3px;
-    text-decoration: red underline;
-}
 #login:invalid {
     text-decoration: red underline;
+}
+#login:focus {
+    outline: none;
+}
+#login:focus:valid {
+    box-shadow: 0 0 0 3px #54bb00;
+}
+#login:focus:invalid {
+    box-shadow: 0 0 0 3px red;
 }
 
 /* ALERT BOX */
@@ -311,7 +313,7 @@ footer a:hover {
 .disable {
     opacity: 0.6;
     user-select: none;
-    transition: 500ms ease-in-out;
+    transition: 750ms ease-in-out 250ms;
 }
 #about-container #bio-container.disable {
     opacity: 1;
