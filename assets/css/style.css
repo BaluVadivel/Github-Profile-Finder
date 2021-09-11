@@ -36,18 +36,14 @@ section {
 #header header h1 {
     font-size: 1.5rem ;
 }
-noscript {
+#scriptDisabled {
     width: 100%;
     height: auto;
-    padding: 10px 0px;
     text-align: center;
     background-color: black;
-    color: whitesmoke;
+    color: springgreen;
     font-weight: bold;
-    font-size: 1.2rem;
-    position: fixed;
-    z-index: 50;
-    top: 80px;
+    font-size: 1.4rem;
 }
 #container {
     width: calc(100% - 20px);
