@@ -36,6 +36,19 @@ section {
 #header header h1 {
     font-size: 1.5rem ;
 }
+noscript {
+    width: 100%;
+    height: auto;
+    padding: 10px 0px;
+    text-align: center;
+    background-color: black;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: fixed;
+    z-index: 50;
+    top: 80px;
+}
 #container {
     width: calc(100% - 20px);
     max-width: 1280px;
